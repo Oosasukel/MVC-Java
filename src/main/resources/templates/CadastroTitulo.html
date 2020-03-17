@@ -7,12 +7,17 @@
 
 <section layout:fragment="conteudo">
 
-	<form class="form-horizontal" method="POST" action="/titulos">
+	<form class="form-horizontal" method="POST" action="/titulos" th:object="${titulo}">
 
 		<div class="alert alert-success"
 			th:if="${!#strings.isEmpty(mensagem)}">
 			<button type="button" class="close" data-dismiss="alert"></button>
-			<span th:text="${mensagem}"></span>
+			<span th:text="${mensagem}">Título salvo com sucesso!!!</span>
+		</div>
+		<div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+			<div th:each="detailError : ${#fields.detailedErrors()}">
+				<span th:text="${detailError.message}"></span>
+			</div>
 		</div>
 
 		<div class="panel panel-default">
@@ -24,31 +29,33 @@
 			</div>
 
 			<div class="panel-body">
-				<div class="form-group">
+				<input type="hidden" th:field="*{codigo}"/>
+			
+				<div class="form-group" th:classappend="${#fields.hasErrors('descricao')} ? 'has-error'">
 					<label for="descricao" class="col-sm-2" control-label>Descrição</label>
 					<div class="col-sm-4">
 						<input type="text" class="form-control" id="descricao"
-							name="descricao" />
+							th:field="*{descricao}" />
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group" th:classappend="${#fields.hasErrors('dataVencimento')} ? 'has-error'">
 					<label for="dataVencimento" class="col-sm-2" control-label>Data
 						de vencimento</label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="dataVencimento"
-							name="dataVencimento" />
+							th:field="*{dataVencimento}"/>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group" th:classappend="${#fields.hasErrors('valor')} ? 'has-error'">
 					<label for="valor" class="col-sm-2" control-label>Valor</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="valor" name="valor" />
+						<input type="text" class="form-control" id="valor" th:field="*{valor}"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="status" class="col-sm-2" control-label>Status</label>
 					<div class="col-sm-2">
-						<select class="form-control" id="status" name="status">
+						<select class="form-control" id="status" th:field="*{status}">
 							<option th:each="status : ${todosStatusTitulo}"
 								th:value="${status}" th:text="${status.descricao}"></option>
 						</select>
