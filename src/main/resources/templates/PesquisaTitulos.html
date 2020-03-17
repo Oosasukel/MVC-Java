@@ -1,28 +1,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org" layout:decorator="LayoutPadrao">
 <head>
-<meta charset="UTF-8" />
 <title>Pesquisa de títulos</title>
-<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="/css/style.css" />
 </head>
-<body>
-	<nav class="navbar navbar-inverse navbar-static-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#"> <img
-					src="/images/economic.png" height="100%">
-				</a>
-			</div>
-		</div>
-	</nav>
-	
+
+<section layout:fragment="conteudo">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h1 class="panel-title">Pesquisa de títulos</h1>
+			<div class="clearfix">
+				<h1 class="panel-title aw-titulo-panel">Pesquisa de títulos</h1>
+				<a class="btn btn-link aw-link-panel" href="/titulos/novo">Novo título</a>
+			</div>
 		</div>
-		
+
 		<div class="panel-body">
 			<table class="table table-bordered table-striped">
 				<thead>
@@ -43,8 +34,5 @@
 			</table>
 		</div>
 	</div>
-
-	<script src="/js/jquery3.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-</body>
+</section>
 </html>
