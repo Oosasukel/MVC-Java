@@ -57,6 +57,10 @@ public class Titulo {
 		return true;
 	}
 	
+	public boolean isPendente() {
+		return StatusTitulo.PENDENTE.equals(this.status);
+	}
+	
 	public Long getCodigo() {
 		return codigo;
 	}
