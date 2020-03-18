@@ -1,5 +1,7 @@
 package com.gft.aprendendoMVC.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.gft.aprendendoMVC.model.StatusTitulo;
 import com.gft.aprendendoMVC.model.Titulo;
 import com.gft.aprendendoMVC.repository.Titulos;
+import com.gft.aprendendoMVC.repository.filter.TituloFilter;
 
 @Service
 public class CadastroTituloService {
@@ -31,5 +34,10 @@ public class CadastroTituloService {
 		titulos.save(titulo);
 		
 		return StatusTitulo.RECEBIDO.getDescricao();
+	}
+	
+	public List<Titulo> filtrar(TituloFilter filtro){
+		String descricao = filtro.getDescricao() == null ? "" : filtro.getDescricao();
+		return titulos.findByDescricaoContaining(descricao);
 	}
 }

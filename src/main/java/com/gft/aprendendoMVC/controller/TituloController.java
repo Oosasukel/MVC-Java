@@ -2,10 +2,8 @@ package com.gft.aprendendoMVC.controller;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -19,15 +17,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gft.aprendendoMVC.model.StatusTitulo;
 import com.gft.aprendendoMVC.model.Titulo;
-import com.gft.aprendendoMVC.repository.Titulos;
+import com.gft.aprendendoMVC.repository.filter.TituloFilter;
 import com.gft.aprendendoMVC.service.CadastroTituloService;
 
 @Controller
 @RequestMapping("/titulos")
 public class TituloController {
-
-	@Autowired
-	private Titulos titulos;
 	
 	@Autowired
 	private CadastroTituloService cadastroTituloService;
@@ -77,8 +72,9 @@ public class TituloController {
 	}
 
 	@RequestMapping
-	public ModelAndView pesquisar() {
-		List<Titulo> todosTitulos = titulos.findAll();
+	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro) {
+		List<Titulo> todosTitulos = cadastroTituloService.filtrar(filtro);
+		
 		ModelAndView mv = new ModelAndView("PesquisaTitulos");
 		mv.addObject("titulos", todosTitulos);
 		return mv;
