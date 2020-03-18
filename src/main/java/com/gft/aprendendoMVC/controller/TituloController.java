@@ -45,11 +45,20 @@ public class TituloController {
 		return "redirect:/titulos/novo";
 	}
 
-	@RequestMapping("{codigo}")
+	@RequestMapping(value = "{codigo}", method = RequestMethod.GET)
 	public ModelAndView edicao(@PathVariable("codigo") Titulo titulo) {
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		mv.addObject(titulo);
 		return mv;
+	}
+	
+	@RequestMapping(value = "{codigo}", method = RequestMethod.POST)
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes) {
+		titulos.deleteById(codigo);
+		
+		attributes.addFlashAttribute("mensagem", "Título excluído com sucesso!");
+		return "redirect:/titulos";
+		
 	}
 
 	@RequestMapping
